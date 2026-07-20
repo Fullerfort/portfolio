@@ -1,0 +1,534 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your Name — Web Developer</title>
+<meta name="description" content="Freelance web developer specializing in WordPress troubleshooting, server deployment, and database management.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0E14;
+    --surface:#121722;
+    --surface-2:#171E2B;
+    --border:#212B3A;
+    --text:#E4E9F0;
+    --text-muted:#8792A3;
+    --accent:#5EEAD4;
+    --accent-warm:#F5A623;
+    --mono:'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+    --sans:'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:var(--accent); text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  :focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:3px;
+  }
+
+  .wrap{
+    max-width:920px;
+    margin:0 auto;
+    padding:0 24px;
+  }
+
+  /* ---------- Nav ---------- */
+  .nav{
+    position:sticky;
+    top:0;
+    z-index:20;
+    background:rgba(11,14,20,0.85);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav-inner{
+    max-width:920px;
+    margin:0 auto;
+    padding:16px 24px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+  }
+  .nav-logo{
+    font-family:var(--mono);
+    font-size:0.95rem;
+    color:var(--text);
+  }
+  .nav-logo span{color:var(--accent);}
+  .nav-links{
+    display:flex;
+    gap:24px;
+    list-style:none;
+    margin:0;
+    padding:0;
+    font-family:var(--mono);
+    font-size:0.85rem;
+  }
+  .nav-links a{color:var(--text-muted);}
+  .nav-links a:hover{color:var(--accent); text-decoration:none;}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding:96px 0 72px;
+  }
+  .terminal{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:8px;
+    overflow:hidden;
+    box-shadow:0 20px 60px -20px rgba(0,0,0,0.6);
+    margin-bottom:44px;
+  }
+  .terminal-bar{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:10px 14px;
+    background:var(--surface-2);
+    border-bottom:1px solid var(--border);
+  }
+  .dot{width:10px; height:10px; border-radius:50%;}
+  .dot.red{background:#F87171;}
+  .dot.yellow{background:#FBBF24;}
+  .dot.green{background:#34D399;}
+  .terminal-title{
+    margin-left:8px;
+    font-family:var(--mono);
+    font-size:0.75rem;
+    color:var(--text-muted);
+  }
+  .terminal-body{
+    padding:20px 24px 26px;
+    font-family:var(--mono);
+    font-size:0.88rem;
+    min-height:190px;
+  }
+  .terminal-line{
+    white-space:pre-wrap;
+    word-break:break-word;
+    min-height:1.5em;
+  }
+  .prompt{color:var(--accent-warm);}
+  .ok{color:var(--accent);}
+  .muted{color:var(--text-muted);}
+  .cursor{
+    display:inline-block;
+    width:8px;
+    height:1em;
+    background:var(--accent);
+    vertical-align:text-bottom;
+    animation:blink 1s step-start infinite;
+  }
+  @keyframes blink{50%{opacity:0;}}
+
+  .hero h1{
+    font-family:var(--mono);
+    font-size:clamp(1.6rem, 4vw, 2.4rem);
+    line-height:1.3;
+    margin:0 0 16px;
+    max-width:18ch;
+  }
+  .hero p.lede{
+    color:var(--text-muted);
+    font-size:1.05rem;
+    max-width:56ch;
+    margin:0 0 28px;
+  }
+  .cta-row{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+  }
+  .btn{
+    font-family:var(--mono);
+    font-size:0.85rem;
+    padding:12px 20px;
+    border-radius:6px;
+    border:1px solid var(--border);
+    display:inline-block;
+  }
+  .btn-primary{
+    background:var(--accent);
+    color:#06171A;
+    border-color:var(--accent);
+    font-weight:700;
+  }
+  .btn-primary:hover{opacity:0.9; text-decoration:none;}
+  .btn-ghost{
+    color:var(--text);
+    background:transparent;
+  }
+  .btn-ghost:hover{border-color:var(--accent); color:var(--accent); text-decoration:none;}
+
+  /* ---------- Sections ---------- */
+  section{padding:64px 0;}
+  section + section{border-top:1px solid var(--border);}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:0.8rem;
+    color:var(--accent-warm);
+    margin:0 0 10px;
+  }
+  h2{
+    font-size:1.5rem;
+    margin:0 0 20px;
+  }
+  .about p{
+    color:var(--text-muted);
+    max-width:64ch;
+    font-size:1.02rem;
+  }
+  .about p strong{color:var(--text);}
+
+  /* ---------- Skills (status list) ---------- */
+  .status-list{
+    list-style:none;
+    margin:0;
+    padding:0;
+    border:1px solid var(--border);
+    border-radius:8px;
+    overflow:hidden;
+  }
+  .status-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    padding:16px 20px;
+    background:var(--surface);
+  }
+  .status-row + .status-row{border-top:1px solid var(--border);}
+  .status-name{font-weight:600;}
+  .status-desc{
+    color:var(--text-muted);
+    font-size:0.92rem;
+    margin-top:4px;
+  }
+  .status-badge{
+    font-family:var(--mono);
+    font-size:0.78rem;
+    color:var(--accent);
+    display:flex;
+    align-items:center;
+    gap:8px;
+    white-space:nowrap;
+  }
+  .status-badge::before{
+    content:'';
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:var(--accent);
+    box-shadow:0 0 8px var(--accent);
+  }
+
+  /* ---------- Projects ---------- */
+  .project-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+    gap:18px;
+  }
+  .project-card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:20px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+  .project-id{
+    font-family:var(--mono);
+    font-size:0.72rem;
+    color:var(--text-muted);
+  }
+  .project-card h3{
+    margin:0;
+    font-size:1.08rem;
+  }
+  .project-card p{
+    color:var(--text-muted);
+    font-size:0.92rem;
+    margin:0;
+    flex-grow:1;
+  }
+  .tag-row{display:flex; flex-wrap:wrap; gap:6px;}
+  .tag{
+    font-family:var(--mono);
+    font-size:0.7rem;
+    color:var(--accent-warm);
+    border:1px solid var(--border);
+    border-radius:4px;
+    padding:3px 8px;
+  }
+  .project-link{
+    font-family:var(--mono);
+    font-size:0.85rem;
+    margin-top:4px;
+  }
+
+  /* ---------- Contact ---------- */
+  .contact-box{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:24px 26px;
+    font-family:var(--mono);
+    font-size:0.92rem;
+  }
+  .contact-box .line{margin-bottom:10px;}
+  .contact-box .line:last-child{margin-bottom:0;}
+
+  footer{
+    padding:32px 0 60px;
+    text-align:center;
+    color:var(--text-muted);
+    font-family:var(--mono);
+    font-size:0.8rem;
+  }
+
+  .fade-in{
+    opacity:0;
+    transform:translateY(12px);
+    transition:opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-in.visible{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+  @media (max-width:600px){
+    .nav-links{gap:14px; font-size:0.78rem;}
+    .hero{padding:64px 0 48px;}
+    section{padding:48px 0;}
+    .status-row{flex-direction:column; align-items:flex-start; gap:6px;}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-logo">~/<span>yourname</span></div>
+    <ul class="nav-links">
+      <li><a href="#about">about</a></li>
+      <li><a href="#skills">skills</a></li>
+      <li><a href="#work">work</a></li>
+      <li><a href="#contact">contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero wrap">
+  <div class="terminal">
+    <div class="terminal-bar">
+      <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+      <span class="terminal-title">status-check.sh</span>
+    </div>
+    <div class="terminal-body" id="terminalBody"></div>
+  </div>
+
+  <h1 id="heroHeadline" class="fade-in">I build websites — and fix the infrastructure behind them.</h1>
+  <p class="lede fade-in">Freelance web developer specializing in WordPress troubleshooting, server deployment, and database management — the parts of a site that break silently while everything still "looks" fine.</p>
+  <div class="cta-row fade-in">
+    <a href="#work" class="btn btn-primary">View my work</a>
+    <a href="#contact" class="btn btn-ghost">Get in touch</a>
+  </div>
+</header>
+
+<section id="about" class="wrap">
+  <p class="eyebrow fade-in">$ whoami</p>
+  <h2 class="fade-in">About</h2>
+  <div class="about fade-in">
+    <p>
+      I'm <strong>[Your Name]</strong>, a web developer based in Malaysia.
+      Most developers stop at the front end — I go further, into the server
+      configs, database connections, and deployment pipelines that keep a
+      site actually running.
+      <!-- Replace this with 2–3 real sentences: how you got into this, what you enjoy building, and what makes you different. -->
+    </p>
+  </div>
+</section>
+
+<section id="skills" class="wrap">
+  <p class="eyebrow fade-in">$ status --check</p>
+  <h2 class="fade-in">What I work with</h2>
+  <ul class="status-list fade-in">
+    <li class="status-row">
+      <div>
+        <div class="status-name">WordPress &amp; CMS</div>
+        <div class="status-desc">Fixing broken installs, misconfigured servers, theme &amp; plugin conflicts.</div>
+      </div>
+      <span class="status-badge">OPERATIONAL</span>
+    </li>
+    <li class="status-row">
+      <div>
+        <div class="status-name">Server &amp; Deployment</div>
+        <div class="status-desc">SSH access, Nginx/Apache configuration, cloud hosting (Alibaba Cloud, AWS, DigitalOcean).</div>
+      </div>
+      <span class="status-badge">OPERATIONAL</span>
+    </li>
+    <li class="status-row">
+      <div>
+        <div class="status-name">Database Management</div>
+        <div class="status-desc">MySQL/MariaDB connectivity, migrations, backup &amp; recovery.</div>
+      </div>
+      <span class="status-badge">OPERATIONAL</span>
+    </li>
+    <li class="status-row">
+      <div>
+        <div class="status-name">Frontend Development</div>
+        <div class="status-desc">Responsive HTML, CSS, and JavaScript for fast, accessible sites.</div>
+      </div>
+      <span class="status-badge">OPERATIONAL</span>
+    </li>
+  </ul>
+</section>
+
+<section id="work" class="wrap">
+  <p class="eyebrow fade-in">$ ls ./projects</p>
+  <h2 class="fade-in">Selected work</h2>
+  <!-- Replace these three placeholder cards with your real projects. If you don't have client work yet, use practice builds: a redesign of a local business site, a personal tool, a migration you handled end-to-end. -->
+  <div class="project-grid fade-in">
+    <div class="project-card">
+      <span class="project-id">PROJECT_001</span>
+      <h3>Project title</h3>
+      <p>One or two sentences on the problem, what you built or fixed, and the result.</p>
+      <div class="tag-row"><span class="tag">WordPress</span><span class="tag">Nginx</span></div>
+      <a class="project-link" href="#">view case study →</a>
+    </div>
+    <div class="project-card">
+      <span class="project-id">PROJECT_002</span>
+      <h3>Project title</h3>
+      <p>One or two sentences on the problem, what you built or fixed, and the result.</p>
+      <div class="tag-row"><span class="tag">MySQL</span><span class="tag">Migration</span></div>
+      <a class="project-link" href="#">view case study →</a>
+    </div>
+    <div class="project-card">
+      <span class="project-id">PROJECT_003</span>
+      <h3>Project title</h3>
+      <p>One or two sentences on the problem, what you built or fixed, and the result.</p>
+      <div class="tag-row"><span class="tag">HTML/CSS</span><span class="tag">JavaScript</span></div>
+      <a class="project-link" href="#">view case study →</a>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="wrap">
+  <p class="eyebrow fade-in">$ contact --method</p>
+  <h2 class="fade-in">Get in touch</h2>
+  <div class="contact-box fade-in">
+    <div class="line"><span class="muted">&gt;</span> Email: <a href="mailto:you@example.com">you@example.com</a></div>
+    <div class="line"><span class="muted">&gt;</span> GitHub: <a href="https://github.com/yourusername" target="_blank" rel="noopener">github.com/yourusername</a></div>
+    <div class="line"><span class="muted">&gt;</span> LinkedIn: <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener">linkedin.com/in/yourusername</a></div>
+  </div>
+</section>
+
+<footer>
+  $ echo "thanks for stopping by" <span id="year"></span>
+</footer>
+
+<script>
+  // Boot-sequence terminal effect (skipped instantly if reduced motion is preferred)
+  (function(){
+    var body = document.getElementById('terminalBody');
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    var lines = [
+      {text: '$ whoami', cls: 'prompt', pause: 250},
+      {text: '> your-name — web developer & infrastructure troubleshooter', cls: 'muted', pause: 350},
+      {text: '$ ./status-check.sh', cls: 'prompt', pause: 250},
+      {text: '[OK] wordpress-cms ............ operational', cls: 'ok', pause: 150},
+      {text: '[OK] server-deployment ........ operational', cls: 'ok', pause: 150},
+      {text: '[OK] database-connectivity .... operational', cls: 'ok', pause: 150},
+      {text: '[OK] frontend-delivery ........ operational', cls: 'ok', pause: 150},
+      {text: '$ echo "ready for new work"', cls: 'prompt', pause: 200}
+    ];
+
+    function renderStatic(){
+      body.innerHTML = lines.map(function(l){
+        return '<div class="terminal-line ' + l.cls + '">' + l.text + '</div>';
+      }).join('') + '<div class="terminal-line"><span class="cursor"></span></div>';
+    }
+
+    if(reduce){
+      renderStatic();
+    } else {
+      var i = 0;
+      function nextLine(){
+        if(i >= lines.length){
+          var cur = document.createElement('div');
+          cur.className = 'terminal-line';
+          cur.innerHTML = '<span class="cursor"></span>';
+          body.appendChild(cur);
+          return;
+        }
+        var l = lines[i];
+        var div = document.createElement('div');
+        div.className = 'terminal-line ' + l.cls;
+        body.appendChild(div);
+        typeText(div, l.text, function(){
+          i++;
+          setTimeout(nextLine, l.pause);
+        });
+      }
+      function typeText(el, text, done){
+        var idx = 0;
+        var speed = 14;
+        (function step(){
+          el.textContent = text.slice(0, idx);
+          idx++;
+          if(idx <= text.length){
+            setTimeout(step, speed);
+          } else {
+            done();
+          }
+        })();
+      }
+      nextLine();
+    }
+  })();
+
+  // Fade-in on scroll
+  (function(){
+    var items = document.querySelectorAll('.fade-in');
+    if(!('IntersectionObserver' in window)){
+      items.forEach(function(el){ el.classList.add('visible'); });
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, {threshold:0.15});
+    items.forEach(function(el){ io.observe(el); });
+  })();
+
+  document.getElementById('year').textContent = '· ' + new Date().getFullYear();
+</script>
+
+</body>
+</html>
